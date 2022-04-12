@@ -1,0 +1,156 @@
+﻿@{
+    ViewBag.Title = "Car Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+	{
+<script src="/js/Custom/CarInformation.js"></script>
+}
+
+<div class="row">
+    <div class="col-2 pb-5">
+        <button id="btnAddNew" class="btn btn-outline-primary">Add New</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table id="tblCarInfo" class="table table-bordered">
+        </table>
+    </div>
+</div>
+<div id="modalCarInformation" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Car Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3">
+                    <div class="col-md-6">
+                        <label for="txtMake" class="form-label">Make</label>
+                        <input type="text" class="form-control txt" id="txtMake" />
+                        <input type="hidden" id="hdCarID" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtModel" class="form-label">Model</label>
+                        <input type="text" class="form-control txt" id="txtModel" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txtYearOFManufacture" class="form-label">Manufacture Year</label>
+                        <input type="text" class="form-control txt" id="txtYearOFManufacture" />
+                    </div>
+                    <div class="col-6">
+                        <label for="txtColor" class="form-label">Color</label>
+                        <input type="text" class="form-control txt" id="txtColor" />
+                    </div>
+                    <div class="col-6">
+                        <label for="txtColor" class="form-label">Type</label>
+                        <div class="col-12 form-check">
+                            <input class="form-check-input" type="radio" name="rbType" value="New" id="rbTypeNew" checked>
+                            <label class="form-check-label" for="flexRadioNew">
+                                New
+                            </label>
+                        </div>
+                        <div class="col-12 form-check">
+                            <input class="form-check-input" type="radio" name="rbType" value="Second Hand" id="rbTypeSecondHand" >
+                            <label class="form-check-label" for="flexRadioSecond">
+                                Second hand
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <label for="txtColor" class="form-label">Advert Status</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rbStatus" value="Publish" id="rbPublish" checked>
+                            <label class="form-check-label" for="flexRadioNew">
+                                Publish
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rbStatus" value="Draft" id="rbDraft">
+                            <label class="form-check-label" for="flexRadioDraft">
+                                Draft
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="rbStatus" value="Archived" id="rbArchived">
+                            <label class="form-check-label" for="flexRadioArchived">
+                                Archived
+                            </label>
+                        </div>
+                    </div>
+
+                    @*<div class="col-6 pt-4">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="" id="rbPublishStatus">
+                            <label class="form-check-label" for="rbPublishStatus">
+                                Publish
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="" id="rbCarType">
+                            <label class="form-check-label" for="rbCarType">
+                                Car Type
+                            </label>
+                        </div>
+                    </div>*@
+                    <div class="col-6">
+                        <label for="txtPrice" class="form-label">Price</label>
+                        <input type="text" class="form-control txt" id="txtPrice" />
+                    </div>
+                    <div class="col-12">
+                        <label for="txtExtras" class="form-label">Extras</label>
+                        <input type="text" class="form-control txt" id="txtExtras" placeholder="towbar, roofrack, custom sound system"/>
+                    </div>
+                    @*<div class="col-12">
+                        <label for="txtColor" class="form-label">Advert Status</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="Publish">Publish</option>
+                            <option value="Draft">Draft</option>
+                            <option value="Archived">Archived</option>
+                        </select>
+                    </div>*@
+                    @*<div class="col-12">
+                        <label for="txtColor" class="form-label">Advert Status</label>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option value="Publish">Publish</option>
+                        <option value="Draft">Draft</option>
+                        <option value="Archived">Archived</option>
+                        </select>
+                        </div>*@
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="btnSave" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalUploadImages" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Car Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" name="form" action="/uploader" enctype="multipart/form-data" method="post">
+                    <div class="buttons">
+                        <div class="upload-button">
+                            <input id="files" name="files" type="file" size="1" multiple onchange="uploadFiles('files');" />
+                            <input type="hidden" id="UPCarID" class="txt" />
+                        </div>
+                    </div>
+                </form>
+                <div class="row" id="divCarImages">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
